@@ -27,7 +27,7 @@ async function login(req: IReq<ILoginReq>, res: IRes) {
   res.cookie(Key, jwt, Options);
   // Return
   return res.status(HttpStatusCodes.OK)
-    .json({ 'message': 'the cookie was set' });
+    .json({ 'message': 'la cookie se seteo en tu navegador' });
 }
 
 /**
@@ -37,7 +37,7 @@ function logout(_: IReq, res: IRes) {
   const { Key, Options } = EnvVars.CookieProps;
   res.clearCookie(Key, Options);
   return res.status(HttpStatusCodes.OK)
-    .json({ 'message': 'the cookie was removed' });
+    .json({ 'message': 'la cookie fue removida' });
 }
 
 

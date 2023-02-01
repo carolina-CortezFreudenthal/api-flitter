@@ -5,8 +5,8 @@ import HttpStatusCodes from '@src/constants/HttpStatusCodes';
 
 // **** Variables **** //
 
-export const USER_NOT_FOUND_ERR = 'User not found';
-export const INVALID_UPDATE = 'Email or username are already taken';
+export const USER_NOT_FOUND_ERR = 'usuario no encontrado';
+export const INVALID_UPDATE = 'email o username ya fueron tomados';
 
 
 // **** Functions **** //

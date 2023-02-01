@@ -7,8 +7,7 @@ import { JwtPayload } from 'jsonwebtoken';
  
 import EnvVars from '@src/constants/EnvVars';
 import JwtUtil from '@src/util/JwtUtil';
-import { ISessionUser } from '@src/models/User';
-import UserService from '@src/services/UserService';
+import { ISessionUser, UserModel } from '@src/models/User';
  
  
 // **** Variables **** //
@@ -27,9 +26,11 @@ async function adminMw(
   const { Key } = EnvVars.CookieProps,
     jwt = req.signedCookies[Key];
   if (jwt) {
-    const clientData = await JwtUtil.decode<ISessionUser & JwtPayload>(jwt);
-    if ((clientData as ISessionUser)?.id) {
-      const user = await UserService.get((clientData as ISessionUser).id);
+    const clientData = await JwtUtil.decode<ISessionUser & JwtPayload>(jwt);  
+  
+    if ((clientData as ISessionUser)?._id) {
+      const user = await UserModel
+        .findById((clientData as ISessionUser)._id).lean();
       res.locals.sessionUser = user;
     }
   }

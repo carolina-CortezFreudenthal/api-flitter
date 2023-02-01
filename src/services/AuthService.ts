@@ -1,11 +1,10 @@
-import UserRepo from '@src/repos/UserRepo';
-
 import JwtUtil from '@src/util/JwtUtil';
 import PwdUtil from '@src/util/PwdUtil';
 import { tick } from '@src/util/misc';
 
 import HttpStatusCodes from '@src/constants/HttpStatusCodes';
 import { RouteError } from '@src/other/classes';
+import { ISessionUser, IUser, UserModel } from '@src/models/User';
 
 
 // **** Variables **** //
@@ -13,7 +12,8 @@ import { RouteError } from '@src/other/classes';
 // Errors
 export const Errors = {
   Unauth: 'Unauthorized',
-  emailNotFound: (email: string) => `User with email "${email}" not found`,
+  emailNotFound: (email: string) => 
+    `El usuario con el "${email}" no fue encontrado`,
 } as const;
 
 
@@ -24,7 +24,8 @@ export const Errors = {
  */
 async function getJwt(email: string, password: string): Promise<string> {
   // Fetch user
-  const user = await UserRepo.getOne(email);
+  const user = await UserModel.findOne({ email }) as IUser;
+
   if (!user) {
     throw new RouteError(
       HttpStatusCodes.UNAUTHORIZED,
@@ -42,12 +43,13 @@ async function getJwt(email: string, password: string): Promise<string> {
       Errors.Unauth,
     );
   }
+
   // Setup Admin Cookie
   return JwtUtil.sign({
-    id: user.id,
+    _id: user._id,
     email: user.email,
     username: user.username,
-  });
+  } as ISessionUser);
 }
 
 

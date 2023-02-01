@@ -1,9 +1,10 @@
-import { TAll } from 'jet-validator';
+import mongoose from 'mongoose';
+const {Schema} = mongoose;
 
 // **** Types **** //
 
 export interface IUser {
-  id: number;
+  _id: string;
   username: string;
   email: string;
   password: string;
@@ -11,11 +12,24 @@ export interface IUser {
 }
 
 export interface ISessionUser {
-  id: number;
+  _id: string;
   email: string;
   username: string;
 }
 
+// **** Mongoose **** //
+
+const UserSchema = new Schema({
+  _id: {type: String, index: true},
+  username: {type: String, index: true},
+  email: {type: String, index: true},
+  password: String,
+  pwdHash: String,
+});
+
+export const UserModel = mongoose.model('User', UserSchema);
+
+// **** Validaciones **** //
 
 const validEmail = (email : string) : boolean => {
   return !!String(email)
@@ -33,10 +47,6 @@ const validUsername = (username : string) : boolean => {
       /^[a-zA-Z0-9]+$/,
     );
 };
-
-/^[a-zA-Z0-9]+$/;
-
-// **** Validaciones **** //
 
 const validSignUp = (
   arg: { email?: string, username?: string, password?: string},

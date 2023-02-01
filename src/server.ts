@@ -33,6 +33,9 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser(EnvVars.CookieProps.Secret));
 
+// Conectar con mongoose 
+require('./routes/middleware/connectMongoose');
+
 // Logea las rutas que se llaman durante dev 
 if (EnvVars.NodeEnv === NodeEnvs.Dev) {
   app.use(morgan('dev'));

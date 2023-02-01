@@ -15,7 +15,7 @@ import { RouteError } from '@src/other/classes';
  */
 async function signUp(req: IReq<{user: IUser}>, res: IRes) {
   const { user } = req.body;
-  const newUser = await UserService.addOne({ ...user });
+  const newUser = await UserService.create({ ...user });
   return res.status(HttpStatusCodes.CREATED).json({
     'message': 'el usuario fue creado',
     'user': newUser,
@@ -26,7 +26,7 @@ async function signUp(req: IReq<{user: IUser}>, res: IRes) {
  * Get User
  */
 async function get(req: IReq<{user: IUser}>, res: IRes) {
-  const id = +req.params.id;
+  const id = req.params.id;
   const user = await UserService.get(id);
   return res.status(HttpStatusCodes.CREATED).json({
     'user': user,
@@ -44,7 +44,7 @@ async function getAll(_: IReq, res: IRes) {
 /**
  * Update my account
  */
-async function updateMe(req: IReq<{user: IUser}>, res: IRes) {
+async function updateMe(req: IReq<{user: Partial<IUser>}>, res: IRes) {
   const currentUser = RoutesUtil.getCurrentUser(req);
   if (!currentUser) throw new RouteError(
     HttpStatusCodes.BAD_REQUEST,
@@ -52,7 +52,9 @@ async function updateMe(req: IReq<{user: IUser}>, res: IRes) {
   );
 
   const { user } = req.body;
-  const newUser = await UserService.updateOne({ ...currentUser, ...user });
+  const newUser = await UserService.updateOne({ 
+    _id: currentUser._id, ...user, 
+  });
   return res.status(HttpStatusCodes.OK).json({
     'message': 'el usuario fue creado',
     'user': newUser,
@@ -69,7 +71,7 @@ async function deleteMe(req: IReq, res: IRes) {
     'no hay un usuario logeado',
   );
 
-  const id = currentUser.id;
+  const id = currentUser._id;
   await UserService.delete(id);
 
   // Clear cookies

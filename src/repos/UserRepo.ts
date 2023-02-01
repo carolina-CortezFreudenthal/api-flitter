@@ -46,6 +46,32 @@ async function persists(id: number): Promise<boolean> {
 }
 
 /**
+ * See if a user with the given email exists.
+ */
+async function persistsEmail(email: string): Promise<boolean> {
+  const db = await orm.openDb();
+  for (const user of db.users) {
+    if (user.email == email) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * See if a user with the given username exists.
+ */
+async function persistsUsername(username: string): Promise<boolean> {
+  const db = await orm.openDb();
+  for (const user of db.users) {
+    if (user.username == username) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
  * Get all users.
  */
 async function getAll(): Promise<IUser[]> {
@@ -109,6 +135,8 @@ export default {
   getOne,
   getOneById,
   persists,
+  persistsEmail,
+  persistsUsername,
   getAll,
   add,
   update,

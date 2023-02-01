@@ -6,6 +6,7 @@ import HttpStatusCodes from '@src/constants/HttpStatusCodes';
 // **** Variables **** //
 
 export const USER_NOT_FOUND_ERR = 'User not found';
+export const INVALID_UPDATE = 'Email or username are already taken';
 
 
 // **** Functions **** //
@@ -35,14 +36,39 @@ function getAll(): Promise<IUser[]> {
 /**
  * Add one user.
  */
-function addOne(user: IUser): Promise<IUser> {
+async function addOne(user: IUser): Promise<IUser> {
+  const persistsUsername = await UserRepo.persistsUsername(user.username);
+  const persistsEmail = await UserRepo.persistsUsername(user.username);
+
+  if (persistsEmail || persistsUsername) {
+    throw new RouteError(
+      HttpStatusCodes.BAD_REQUEST,
+      INVALID_UPDATE,
+    );
+  }
+
   return UserRepo.add(user);
 }
 
 /**
  * Update one user.
  */
+
 async function updateOne(user: IUser): Promise<IUser | null> {
+  let persistsUsername = false;
+  let persistsEmail = false;
+  if (user.username) 
+    persistsUsername = await UserRepo.persistsUsername(user.username);
+  if (user.email) 
+    persistsEmail = await UserRepo.persistsEmail(user.email);
+
+  if (persistsEmail || persistsUsername) {
+    throw new RouteError(
+      HttpStatusCodes.BAD_REQUEST,
+      INVALID_UPDATE,
+    );
+  }
+
   const persists = await UserRepo.persists(user.id);
   if (!persists) {
     throw new RouteError(

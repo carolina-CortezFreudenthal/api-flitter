@@ -4,8 +4,12 @@ import jetValidator from 'jet-validator';
 import currentUserMw from './middleware/currentUserMw';
 import Paths from './constants/Paths';
 import User from '@src/models/User';
+import Tweet from '@src/models/Tweet';
+
 import AuthRoutes from './AuthRoutes';
 import UserRoutes from './UserRoutes';
+import TweetRoutes from './TweetRoutes';
+
 
 
 // **** Variables **** //
@@ -76,6 +80,41 @@ userRouter.delete(
 
 // Añade ruta de usuario
 apiRouter.use(Paths.Users.Base, currentUserMw, userRouter);
+
+
+///////////////////////
+// ** TweetsRouter ** //
+///////////////////////
+
+const tweetRouter = Router();
+
+// GetAll
+tweetRouter.get(
+  Paths.Tweets.GetAll,
+  TweetRoutes.getAll,
+);
+
+// Create
+tweetRouter.post(
+  Paths.Tweets.Create,
+  validate(['tweet', Tweet.validTweet]),
+  TweetRoutes.create,
+);
+
+// Delete
+tweetRouter.delete(
+  Paths.Tweets.Delete,
+  TweetRoutes.deleteTweet,
+);
+
+// Kudo
+tweetRouter.post(
+  Paths.Tweets.Kudos,
+  TweetRoutes.kudoToggle,
+);
+
+// Añade ruta para tweets
+apiRouter.use(Paths.Tweets.Base, currentUserMw, tweetRouter);
 
 
 // **** Export default **** //

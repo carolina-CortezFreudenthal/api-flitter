@@ -20,6 +20,13 @@ const Paths = {
     SignUp: '/sign-up',
     DeleteMe: '/delete-me',
   },
+  Tweets: {
+    Base: '/tweets',
+    GetAll: '/',
+    Create: '/',
+    Delete: '/:id',
+    Kudos: '/kudo-toggle/:id',
+  },
 };
 
 

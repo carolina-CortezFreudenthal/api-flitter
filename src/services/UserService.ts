@@ -29,7 +29,7 @@ async function get(id: string): Promise<IUser | null> {
 /**
  * Get all users.
  */
-async function getAll(): Promise<IUser[]> {
+async function getAll( ): Promise<IUser[]> {
   const users = await UserModel.find();
   return users as IUser[];
 }

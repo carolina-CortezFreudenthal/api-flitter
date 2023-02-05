@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import jetValidator from 'jet-validator';
+import jetValidator, { TValidatorFn } from 'jet-validator';
 
 import currentUserMw from './middleware/currentUserMw';
 import Paths from './constants/Paths';
@@ -49,7 +49,7 @@ const userRouter = Router();
 // Sign Up
 userRouter.post(
   Paths.Users.SignUp,
-  validate(['user', User.validSignUp]),
+  validate(['user', User.validSignUp as TValidatorFn]),
   UserRoutes.signUp,
 );
 
@@ -68,7 +68,7 @@ userRouter.get(
 // Actualizar cuenta
 userRouter.put(
   Paths.Users.UpdateMe,
-  validate(['user', User.validUpdateMe]),
+  validate(['user', User.validUpdateMe as TValidatorFn]),
   UserRoutes.updateMe,
 );
 
@@ -97,7 +97,7 @@ tweetRouter.get(
 // Create
 tweetRouter.post(
   Paths.Tweets.Create,
-  validate(['tweet', Tweet.validTweet]),
+  validate(['tweet', Tweet.validTweet as TValidatorFn]),
   TweetRoutes.create,
 );
 

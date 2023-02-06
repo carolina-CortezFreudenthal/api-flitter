@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router, Application } from 'express';
 import jetValidator, { TValidatorFn } from 'jet-validator';
 
 import currentUserMw from './middleware/currentUserMw';
@@ -27,13 +27,13 @@ const authRouter = Router();
 authRouter.post(
   Paths.Auth.Login,
   validate('email', 'password'),
-  AuthRoutes.login,
+  AuthRoutes.login as Application,
 );
 
 // Logout usuario
 authRouter.get(
   Paths.Auth.Logout,
-  AuthRoutes.logout,
+  AuthRoutes.logout as Application,
 );
 
 // AuthRouter
@@ -50,32 +50,32 @@ const userRouter = Router();
 userRouter.post(
   Paths.Users.SignUp,
   validate(['user', User.validSignUp as TValidatorFn]),
-  UserRoutes.signUp,
+  UserRoutes.signUp as Application,
 );
 
 // Obtener usuario
 userRouter.get(
   Paths.Users.Get,
-  UserRoutes.get,
+  UserRoutes.get as Application,
 );
 
 // Obtener todos los usuarios 
 userRouter.get(
   Paths.Users.GetAll,
-  UserRoutes.getAll,
+  UserRoutes.getAll as Application,
 );
 
 // Actualizar cuenta
 userRouter.put(
   Paths.Users.UpdateMe,
   validate(['user', User.validUpdateMe as TValidatorFn]),
-  UserRoutes.updateMe,
+  UserRoutes.updateMe as Application,
 );
 
 // Borrar cuenta
 userRouter.delete(
   Paths.Users.DeleteMe,
-  UserRoutes.deleteMe,
+  UserRoutes.deleteMe as Application,
 );
 
 // Añade ruta de usuario
@@ -91,26 +91,26 @@ const tweetRouter = Router();
 // GetAll
 tweetRouter.get(
   Paths.Tweets.GetAll,
-  TweetRoutes.getAll,
+  TweetRoutes.getAll as Application,
 );
 
 // Create
 tweetRouter.post(
   Paths.Tweets.Create,
   validate(['tweet', Tweet.validTweet as TValidatorFn]),
-  TweetRoutes.create,
+  TweetRoutes.create as Application,
 );
 
 // Delete
 tweetRouter.delete(
   Paths.Tweets.Delete,
-  TweetRoutes.deleteTweet,
+  TweetRoutes.deleteTweet as Application,
 );
 
 // Kudo
 tweetRouter.post(
   Paths.Tweets.Kudos,
-  TweetRoutes.kudoToggle,
+  TweetRoutes.kudoToggle as Application,
 );
 
 // Añade ruta para tweets

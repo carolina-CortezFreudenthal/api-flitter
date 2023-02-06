@@ -2,7 +2,7 @@ import HttpStatusCodes from '@src/constants/HttpStatusCodes';
 
 import AuthService from '@src/services/AuthService';
 import EnvVars from '@src/constants/EnvVars';
-import { IReq, IRes } from './types/express/misc';
+import { IReq, IRes } from './types/types';
 
 
 

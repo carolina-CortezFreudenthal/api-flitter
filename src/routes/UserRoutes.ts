@@ -2,7 +2,7 @@ import HttpStatusCodes from '@src/constants/HttpStatusCodes';
 
 import UserService from '@src/services/UserService';
 import { IUser } from '@src/models/User';
-import { IReq, IRes } from './types/express/misc';
+import { IReq, IRes } from './types/types';
 import RoutesUtil from '@src/util/RoutesUtil';
 import EnvVars from '@src/constants/EnvVars';
 import { RouteError } from '@src/other/classes';

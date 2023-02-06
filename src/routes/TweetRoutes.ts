@@ -4,18 +4,18 @@ import { RouteError } from '@src/other/classes';
 import TweetService from '@src/services/TweetService';
 
 import RoutesUtil from '@src/util/RoutesUtil';
-import { IReq, IRes } from './types/express/misc';
+import { IReq, IRes, IReqQuery } from './types/types';
 
 // **** Functions **** //
 
 /**
  *  Get All Tweets
  */
-async function getAll(req: IReq<{
+async function getAll(req: IReqQuery<{
   userId?: string, 
   text?: string,  
-  skip?: number, 
-  limit?: number,
+  skip?: string, 
+  limit?: string,
 }>, res: IRes) {
   const currentUser = RoutesUtil.getCurrentUser(req);
   if (!currentUser) throw new RouteError(
@@ -24,10 +24,10 @@ async function getAll(req: IReq<{
   );
 
   const tweets = await TweetService.getAll(
-    req.body.userId, 
-    req.body.text, 
-    req.body.skip, 
-    req.body.limit,
+    req.query.userId, 
+    req.query.text, 
+    Number(req.query.skip), 
+    Number(req.query.limit),
   );
   return res.status(HttpStatusCodes.OK).json({ tweets });
 }

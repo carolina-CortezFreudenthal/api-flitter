@@ -78,7 +78,7 @@ Obtener un listado de todos los usuarios disponibles en la BBDD
 Obtener un add por id
 
 ```sh
-    GET localhost:3000/api/users/160549930037
+  GET localhost:3000/api/users/160549930037
 ```
 
 ### Update
@@ -161,8 +161,8 @@ Añadimos los datos del login en el body (x-www-form-urlencoded) de la petición
 
 ## Autoras:
 
-Ana Vírseda Sanz
-Carolina Cortez Freudenthal
-María Ángeles Córdoba García Consuegra
-Paloma Montero Merello
-Sofia Romero Kamermann
+-   Ana Vírseda Sanz
+-   Carolina Cortez Freudenthal
+-   María Ángeles Córdoba García Consuegra
+-   Paloma Montero Merello
+-   Sofia Romero Kamermann

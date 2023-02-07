@@ -2,7 +2,7 @@ import { RouteError } from '@src/other/classes';
 import HttpStatusCodes from '@src/constants/HttpStatusCodes';
 import { ITweet, TweetModel } from '@src/models/Tweet';
 import { getRandomId } from '@src/util/misc';
-import { IUser } from '@src/models/User';
+import { IUser, UserModel } from '@src/models/User';
 
 // **** Variables **** //
 
@@ -43,8 +43,14 @@ async function getAll(
   // Sort by recent
   query.sort({createdAt: 'desc'});
 
-  const tweets = await query.exec();
-  return tweets as ITweet[];
+  const tweets = await query.lean();
+  const newTweets = [];
+
+  for (const tweet of tweets) {
+    const user = await UserModel.findById(tweet.userId).lean();
+    newTweets.push({...tweet, user} as ITweet);
+  }
+  return newTweets;
 }
 
 /**

@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { IUser } from './User';
 const {Schema} = mongoose;
 
 // **** Types **** //
@@ -11,6 +12,8 @@ export interface ITweet {
   kudosCount: number;
   kudosUserIds: string[],
   createdAt: Date;
+  // Esto es para las respuestas
+  user?: IUser;
 }
 
 // **** Mongoose **** //

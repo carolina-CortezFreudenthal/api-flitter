@@ -20,11 +20,35 @@ import HttpStatusCodes from '@src/constants/HttpStatusCodes';
 import { NodeEnvs } from '@src/constants/misc';
 import { RouteError } from '@src/other/classes';
 
+import cors from 'cors';
+
 
 // **** Variables **** //
 
 const app = express();
 
+
+// **** CORS **** //
+
+const corsOptions = {
+  // Aceptar request de cualquier lado
+  // ponemos para poder hacer llamadas desde localhost (vue)
+  origin: '*',
+  optionsSuccessStatus: 200, 
+};
+
+// Agregar headers aceptando requests de cualquier lado
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept',
+  );
+  next();
+});
+
+// eslint-disable-next-line @typescript-eslint/no-unsafe-call
+app.use(cors(corsOptions));
 
 // **** Setup **** //
 

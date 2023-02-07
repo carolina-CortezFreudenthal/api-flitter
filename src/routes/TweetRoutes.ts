@@ -17,12 +17,6 @@ async function getAll(req: IReqQuery<{
   skip?: string, 
   limit?: string,
 }>, res: IRes) {
-  const currentUser = RoutesUtil.getCurrentUser(req);
-  if (!currentUser) throw new RouteError(
-    HttpStatusCodes.BAD_REQUEST,
-    'no hay un usuario logeado',
-  );
-
   const tweets = await TweetService.getAll(
     req.query.userId, 
     req.query.text, 

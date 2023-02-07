@@ -3,6 +3,7 @@ import HttpStatusCodes from '@src/constants/HttpStatusCodes';
 import AuthService from '@src/services/AuthService';
 import EnvVars from '@src/constants/EnvVars';
 import { IReq, IRes } from './types/types';
+import UserService from '@src/services/UserService';
 
 
 
@@ -22,12 +23,17 @@ interface ILoginReq {
 async function login(req: IReq<ILoginReq>, res: IRes) {
   const { email, password } = req.body;
   // Add jwt to cookie
-  const jwt = await AuthService.getJwt(email, password);
+  const { jwt, userId } = await AuthService.getJwt(email, password);
   const { Key, Options } = EnvVars.CookieProps;
   res.cookie(Key, jwt, Options);
+  // Get current user to return
+  const user = await UserService.get(userId);
   // Return
   return res.status(HttpStatusCodes.OK)
-    .json({ 'message': 'la cookie se seteo en tu navegador' });
+    .json({ 
+      'message': 'la cookie se seteo en tu navegador', 
+      user,
+    });
 }
 
 /**

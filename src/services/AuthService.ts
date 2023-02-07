@@ -22,7 +22,9 @@ export const Errors = {
 /**
  * Login a user.
  */
-async function getJwt(email: string, password: string): Promise<string> {
+async function getJwt(
+  email: string, password: string,
+): Promise<{ jwt: string, userId: string }> {
   // Fetch user
   const user = await UserModel.findOne({ email }) as IUser;
 
@@ -43,13 +45,17 @@ async function getJwt(email: string, password: string): Promise<string> {
       Errors.Unauth,
     );
   }
-
-  // Setup Admin Cookie
-  return JwtUtil.sign({
+  const jwt = await JwtUtil.sign({
     _id: user._id,
     email: user.email,
     username: user.username,
-  } as ISessionUser);
+  });
+
+  // Setup Admin Cookie
+  return {
+    jwt,
+    userId: user._id,
+  };
 }
 
 

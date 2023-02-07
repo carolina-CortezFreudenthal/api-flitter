@@ -30,13 +30,6 @@ const app = express();
 
 // **** CORS **** //
 
-const corsOptions = {
-  // Aceptar request de cualquier lado
-  // ponemos para poder hacer llamadas desde localhost (vue)
-  origin: '*',
-  optionsSuccessStatus: 200, 
-};
-
 // Agregar headers aceptando requests de cualquier lado
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
@@ -48,7 +41,7 @@ app.use(function(req, res, next) {
 });
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-app.use(cors(corsOptions));
+app.use(cors({credentials: true, origin: true}));
 
 // **** Setup **** //
 

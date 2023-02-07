@@ -46,6 +46,12 @@ apiRouter.use(Paths.Auth.Base, authRouter);
 
 const userRouter = Router();
 
+// Obtener datos de mi cuenta
+userRouter.get(
+  Paths.Users.MyProfile,
+  UserRoutes.profile as Application,
+);
+
 // Sign Up
 userRouter.post(
   Paths.Users.SignUp,

@@ -19,6 +19,7 @@ const Paths = {
     UpdateMe: '/update-me',
     SignUp: '/sign-up',
     DeleteMe: '/delete-me',
+    MyProfile: '/profile',
   },
   Tweets: {
     Base: '/tweets',

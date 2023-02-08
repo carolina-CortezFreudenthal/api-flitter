@@ -94,7 +94,9 @@ async function kudoToggle(id: string, currentUser: IUser): Promise<ITweet> {
 
   // Return tweet
   await TweetModel.findByIdAndUpdate(tweet._id, tweet).lean();
-  return await TweetModel.findById(tweet._id).lean();
+  const updatedTweet = await TweetModel.findById(tweet._id).lean();
+  const user = await UserModel.findById(updatedTweet?.userId).lean();
+  return { ...updatedTweet, user } as ITweet;
 }
 
 /**

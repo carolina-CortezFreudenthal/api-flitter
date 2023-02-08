@@ -65,7 +65,9 @@ async function create(tweet: ITweet): Promise<ITweet> {
   tweet.kudosCount = 0;
   tweet.kudosUserIds = [];
 
-  return TweetModel.create({ ...tweet }) as Promise<ITweet>;
+  const createdTweet = (await TweetModel.create({ ...tweet })).toObject();
+  const user = await UserModel.findById(createdTweet.userId).lean();
+  return { ...createdTweet, user } as ITweet;
 }
 
 /**

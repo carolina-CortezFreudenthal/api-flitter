@@ -36,12 +36,12 @@ async function create(req: IReq<{ tweet: ITweet}>, res: IRes) {
     'no hay un usuario logeado',
   );
 
-  const tweets = await TweetService.create({
+  const tweet = await TweetService.create({
     // add user id to tweet (person that created the tweet)
     ...req.body.tweet, userId: currentUser._id, 
   });
 
-  return res.status(HttpStatusCodes.OK).json({ tweets });
+  return res.status(HttpStatusCodes.OK).json({ tweet });
 }
 
 /**

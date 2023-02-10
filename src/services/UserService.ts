@@ -29,8 +29,21 @@ async function get(id: string): Promise<IUser | null> {
 /**
  * Get all users.
  */
-async function getAll( ): Promise<IUser[]> {
-  const users = await UserModel.find();
+async function getAll(
+  userIds?: string[], 
+  username?: string
+): Promise<IUser[]> {
+  const filters = {} as { _id: any, username: RegExp };
+
+  if (userIds) {
+    filters._id = { $in: userIds };
+  }
+
+  if (username) {
+    filters.username = new RegExp('.*' + username, 'i');
+  }
+
+  const users = await UserModel.find(filters);
   return users as IUser[];
 }
 
@@ -113,6 +126,30 @@ async function _delete(id: string): Promise<void> {
   await UserModel.findByIdAndRemove(id).lean();
 }
 
+/**
+ * Follow another user and return current user with the following updated
+ */
+async function followToggle(id: string, currentUser: IUser): Promise<IUser> {
+  const userToFollow = await UserModel.findById(id).lean();
+  if (!userToFollow) {
+    throw new RouteError(
+      HttpStatusCodes.NOT_FOUND,
+      USER_NOT_FOUND_ERR,
+    );
+  }
+
+  let followingIds = currentUser.followingIds;
+  if (followingIds.includes(id)) 
+    followingIds = followingIds.filter((fid) => fid !== id);
+  else followingIds.push(id);
+
+  currentUser.followingIds = followingIds;
+
+  // Return user
+  await UserModel.findByIdAndUpdate(currentUser._id, currentUser).lean();
+  return await UserModel.findById(currentUser._id).lean();
+}
+
 // **** Export default **** //
 
 export default {
@@ -121,4 +158,5 @@ export default {
   create,
   updateOne,
   delete: _delete,
+  followToggle,
 } as const;

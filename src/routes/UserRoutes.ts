@@ -2,7 +2,7 @@ import HttpStatusCodes from '@src/constants/HttpStatusCodes';
 
 import UserService from '@src/services/UserService';
 import { IUser } from '@src/models/User';
-import { IReq, IRes } from './types/types';
+import { IReq, IReqQuery, IRes } from './types/types';
 import RoutesUtil from '@src/util/RoutesUtil';
 import EnvVars from '@src/constants/EnvVars';
 import { RouteError } from '@src/other/classes';
@@ -36,8 +36,14 @@ async function get(req: IReq<{user: IUser}>, res: IRes) {
 /**
  *  Get All Users
  */
-async function getAll(_: IReq, res: IRes) {
-  const users = await UserService.getAll();
+async function getAll(req: IReqQuery<{
+  userIds?: string[], 
+  username?: string,
+}>, res: IRes) {
+  const users = await UserService.getAll(
+    req.query.userIds,
+    req.query.username,
+  );
   return res.status(HttpStatusCodes.OK).json({ users });
 }
 
@@ -101,6 +107,24 @@ async function profile(req: IReq, res: IRes) {
   });
 }
 
+/**
+ * Get my account
+ */
+async function followToggle(req: IReq, res: IRes) {
+  const currentUser = RoutesUtil.getCurrentUser(req);
+  if (!currentUser) throw new RouteError(
+    HttpStatusCodes.BAD_REQUEST,
+    'no hay un usuario logeado',
+  );
+
+  const id = req.params.id;
+  const user = await UserService.followToggle(id, currentUser);
+
+  return res.status(HttpStatusCodes.CREATED).json({
+    'user': user,
+  });
+}
+
 // **** Export default **** //
 
 export default {
@@ -110,4 +134,5 @@ export default {
   updateMe,
   deleteMe,
   profile,
+  followToggle,
 } as const;

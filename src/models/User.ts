@@ -6,6 +6,7 @@ const {Schema} = mongoose;
 export interface IUser {
   _id: string;
   username: string;
+  followingIds: string[],
   email: string;
   password: string;
   pwdHash: string;
@@ -23,6 +24,7 @@ const UserSchema = new Schema({
   _id: {type: String, index: true},
   username: {type: String, index: true},
   email: {type: String, index: true},
+  followingIds: { type:[String] },
   password: String,
   pwdHash: String,
 });

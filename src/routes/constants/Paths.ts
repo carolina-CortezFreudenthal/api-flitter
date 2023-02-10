@@ -20,6 +20,7 @@ const Paths = {
     SignUp: '/sign-up',
     DeleteMe: '/delete-me',
     MyProfile: '/profile',
+    Follow: '/follow-toggle/:id',
   },
   Tweets: {
     Base: '/tweets',

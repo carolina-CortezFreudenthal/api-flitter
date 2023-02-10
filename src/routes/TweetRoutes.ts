@@ -12,16 +12,18 @@ import { IReq, IRes, IReqQuery } from './types/types';
  *  Get All Tweets
  */
 async function getAll(req: IReqQuery<{
-  userId?: string, 
+  userIds?: string[], 
   text?: string,  
   skip?: string, 
   limit?: string,
+  sort?: 'desc' | 'asc',
 }>, res: IRes) {
   const tweets = await TweetService.getAll(
-    req.query.userId, 
+    req.query.userIds, 
     req.query.text, 
     Number(req.query.skip), 
     Number(req.query.limit),
+    req.query.sort,
   );
   return res.status(HttpStatusCodes.OK).json({ tweets });
 }

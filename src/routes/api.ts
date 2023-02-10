@@ -84,6 +84,12 @@ userRouter.delete(
   UserRoutes.deleteMe as Application,
 );
 
+// Toggle Following
+userRouter.post(
+  Paths.Users.Follow,
+  UserRoutes.followToggle as Application,
+);
+
 // Añade ruta de usuario
 apiRouter.use(Paths.Users.Base, currentUserMw, userRouter);
 

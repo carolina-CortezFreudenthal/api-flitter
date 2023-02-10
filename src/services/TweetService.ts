@@ -15,15 +15,16 @@ export const TWEET_NOT_DELETE = 'no puedes borrar un tweet de otro usuario';
  * Get all tweets.
  */
 async function getAll(
-  userId?: string, 
+  userIds?: string[], 
   text?: string,  
   skip?: number, 
   limit?: number,
+  sort?: 'desc' | 'asc',
 ): Promise<ITweet[]> {
-  const filters = {} as { userId: string, text: RegExp };
+  const filters = {} as { userId: any, text: RegExp };
   
-  if (userId) {
-    filters.userId = userId;
+  if (userIds) {
+    filters.userId = { $in: userIds };
   }
 
   if (text) {
@@ -41,7 +42,7 @@ async function getAll(
   }
 
   // Sort by recent
-  query.sort({createdAt: 'desc'});
+  query.sort({createdAt: sort || 'desc'});
 
   const tweets = await query.lean();
   const newTweets = [];

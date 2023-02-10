@@ -6,6 +6,7 @@ import { IReq, IReqQuery, IRes } from './types/types';
 import RoutesUtil from '@src/util/RoutesUtil';
 import EnvVars from '@src/constants/EnvVars';
 import { RouteError } from '@src/other/classes';
+import AuthService from '@src/services/AuthService';
 
 
 // **** Functions **** //
@@ -16,6 +17,12 @@ import { RouteError } from '@src/other/classes';
 async function signUp(req: IReq<{user: IUser}>, res: IRes) {
   const { user } = req.body;
   const newUser = await UserService.create({ ...user });
+
+  // Add jwt to cookie
+  const { jwt } = await AuthService.getJwt(user.email, user.password);
+  const { Key, Options } = EnvVars.CookieProps;
+  res.cookie(Key, jwt, Options);
+
   return res.status(HttpStatusCodes.CREATED).json({
     'message': 'el usuario fue creado',
     'user': newUser,

@@ -1,0 +1,33 @@
+[{
+  "_id": "854788135948",
+  "username": "OhMyFlit",
+  "email": "ohmyflit@flitter.com",
+  "followingIds": [],
+  "password": "*******",
+  "pwdHash": "$2b$12$Nsr.Tqu0RyIH7CWhf1ifbuBBwzDANn8TYUTa/nrczOdAr4CUXIbym",
+  "__v": 0
+},{
+  "_id": "568866530579",
+  "username": "ElmoMusk",
+  "email": "elmomusk@flitter.com",
+  "followingIds": [],
+  "password": "*******",
+  "pwdHash": "$2b$12$LCQNzjeOtsyUTaKbBGkiB.WeFy4XeWd8uQZpH5LfSoMzhZtA3HB9O",
+  "__v": 0
+},{
+  "_id": "41380456912",
+  "username": "AnaflinSkywalker",
+  "email": "anaflinskywalker@flitter.com",
+  "followingIds": [],
+  "password": "*******",
+  "pwdHash": "$2b$12$PVLy9nCbDw89OSR3QIMWrO6mVuUeW8cSsEFz1N608f35DnHZhzaH2",
+  "__v": 0
+},{
+  "_id": "149075307786",
+  "username": "FlitCoding",
+  "email": "flitcoding@flitter.com",
+  "followingIds": [],
+  "password": "*******",
+  "pwdHash": "$2b$12$GBCh06pQc/xqKgdsYIoZXeV388kJOB.dopKZkAsuyOunZ82ExjmxG",
+  "__v": 0
+}]

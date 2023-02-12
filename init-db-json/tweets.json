@@ -1,0 +1,107 @@
+[{
+  "_id": "121617388081",
+  "userId": "854788135948",
+  "text": "Hey there everyone!\nWelcome to Flitter, an app developed with Typescript with love.",
+  "imageUrl": "https://img.devrant.com/devrant/rant/r_3015646_HZCi4.jpg",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1676208712568"
+    }
+  },
+  "kudosCount": 4,
+  "kudosUserIds": [
+    "568866530579",
+    "41380456912",
+    "854788135948",
+    "149075307786"
+  ],
+  "__v": 0
+},{
+  "_id": "959594187859",
+  "userId": "568866530579",
+  "text": "Now I'm going to buy Flitter and detele it!! Hahahaha",
+  "imageUrl": "https://static01.nyt.com/images/2021/05/09/fashion/07ELON-MEMES1print/merlin_186856077_79eae717-8121-4e4d-9a26-1137eb410690-superJumbo.jpg",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1676208782209"
+    }
+  },
+  "kudosCount": 4,
+  "kudosUserIds": [
+    "568866530579",
+    "41380456912",
+    "854788135948",
+    "149075307786"
+  ],
+  "__v": 0
+},{
+  "_id": "807018064735",
+  "userId": "41380456912",
+  "text": "Git push... \nand RUN!",
+  "imageUrl": "https://i.chzbgr.com/full/9711908864/h532F77E1/person-spent-5-hours-change-2-lines-imgflipcom-124-so-bug-is-fixed-now-s-fixed-right",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1676211084649"
+    }
+  },
+  "kudosCount": 2,
+  "kudosUserIds": [
+    "854788135948",
+    "149075307786"
+  ],
+  "__v": 0
+},{
+  "_id": "724541603334",
+  "userId": "854788135948",
+  "text": "Spending the afternoon having a great coffee at my favourite place ever! Twitter Beand Coffee Shop ",
+  "imageUrl": "https://willertrip.com/vn/vn/mobi/khuyen-mai/twitterbeans/img/store-duytan.jpg",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1676211146670"
+    }
+  },
+  "kudosCount": 1,
+  "kudosUserIds": [
+    "149075307786"
+  ],
+  "__v": 0
+},{
+  "_id": "364100904392",
+  "userId": "149075307786",
+  "text": "¿Qué es el Bootcamp Mujeres en Tech?\nEs un curso de formación intensiva y gratuito al estilo Bootcamp. Esta iniciativa de Glovo en colaboración con KeepCoding está dirigida a mujeres que vivan en España y que quieran aprender a programar desde cero",
+  "imageUrl": "",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1676211347038"
+    }
+  },
+  "kudosCount": 0,
+  "kudosUserIds": [],
+  "__v": 0
+},{
+  "_id": "338735601710",
+  "userId": "149075307786",
+  "text": "Pa' todos los programadores, como tú 😉",
+  "imageUrl": "https://pbs.twimg.com/media/FmV5DsXX0AImbFU?format=jpg&name=large",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1676211471344"
+    }
+  },
+  "kudosCount": 0,
+  "kudosUserIds": [],
+  "__v": 0
+},{
+  "_id": "172044772440",
+  "userId": "41380456912",
+  "text": "Having some issues when mergin git branches...\nCan anyone help me, please?  ",
+  "imageUrl": "https://media.tenor.com/D12KYBUCOBAAAAAd/git-merge.gif",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1676211706443"
+    }
+  },
+  "kudosCount": 0,
+  "kudosUserIds": [],
+  "__v": 0
+}]

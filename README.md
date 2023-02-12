@@ -39,19 +39,60 @@ Aplicación configurada para arrancar en el **puerto 3000**
 Obtendremos los **resultados** con la siguiente estructura JSON:
 
 ```sh
-    "users": [
-        {
-            "_id": "160549930037",
-            "username": "hola",
-            "email": "hola@flitter.com",
-            "password": "*******",
-            "pwdHash": "$2b$12$BCaSAh5yGAm8J3bdEhNA4ezfuZBtcfhwnXUXOfTEeKVEf0XCJgtQu",
-            "__v": 0
-        }
-    ]
+  USER:
+    {
+      "_id": "854788135948",
+        "username": "OhMyFlit",
+        "email": "ohmyflit@flitter.com",
+        "followingIds": [],
+        "password": "*******",
+        "pwdHash": "$2b$12$Nsr.Tqu0RyIH7CWhf1ifbuBBwzDANn8TYUTa/nrczOdAr4CUXIbym",
+        "__v": 0
+    }
+
+  Tweets/Flits
+    {
+      "_id": "732336368726",
+      "userId": "854788135948",
+      "text": "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó un",
+      "imageUrl": "https://cdn.pixabay.com/photo/2023/01/25/18/14/landscape-7744216_960_720.jpg",
+      "createdAt": "2023-02-12T14:34:00.070Z",
+      "kudosCount": 0,
+      "kudosUserIds": [],
+      "__v": 0,
+      "user": {
+        "_id": "854788135948",
+        "username": "OhMyFlit",
+        "email": "ohmyflit@flitter.com",
+        "followingIds": [],
+        "password": "*******",
+        "pwdHash": "$2b$12$Nsr.Tqu0RyIH7CWhf1ifbuBBwzDANn8TYUTa/nrczOdAr4CUXIbym",
+        "__v": 0
+      }
+    }
+
 ```
 
 Esta API nos permite hacer **CRUD** con los flits/tweets y usuarios de la BBDD, a continuación se muestran algunos ejemplos de uso:
+
+## AUTHENTIFICATION
+
+### Log In
+
+Añadimos los datos del login en el body (x-www-form-urlencoded) de la petición POST, nos devuelve el token en una cookie
+
+```sh
+  POST localhost:3000/api/auth/login
+
+  email: hola@flitter.com,
+  password: 1234
+```
+
+### Log Out
+
+```sh
+  GET localhost:3000/api/auth/logout
+```
 
 ## USERS
 
@@ -62,9 +103,9 @@ Añadimos los datos a insertar en el body (x-www-form-urlencoded) de la petició
 ```sh
     POST localhost:3000/api/users/sign-up
 
-    user[email]: adios@flitter.com,
+    user[email]: ohmyflit@flitter.com,
     user[password]: 1234,
-    user[username]: AdiosFlit
+    user[username]: OhMyFlit
 ```
 
 ### Read
@@ -78,7 +119,7 @@ Obtener un listado de todos los usuarios disponibles en la BBDD
 Obtener un add por id
 
 ```sh
-  GET localhost:3000/api/users/160549930037
+  GET localhost:3000/api/users/854788135948
 ```
 
 ### Update
@@ -88,7 +129,7 @@ Añadimos los datos a modificar del usuario actual en el body (x-www-form-urlenc
 ```sh
   PUT localhost:3000/api/users/update-me
 
-  'user[username]': 'adios'
+  'user[username]': 'flitter'
 ```
 
 ### Delete
@@ -109,12 +150,12 @@ Añadimos los datos a insertar en el body (x-www-form-urlencoded) de la petició
     POST localhost:3000/api/tweets
 
     tweet[text]: "Lorem Ipsum...",
-    tweet[imageUrl]: "urlIMG.com/img"
+    tweet[imageUrl]: "https://www.imgs.com/img"
 ```
 
 ### Read
 
-Obtener un listado de todos los usuarios disponibles en la BBDD
+Obtener un listado de todos los tweets/flits disponibles en la BBDD
 
 ```sh
   GET localhost:3000/api/tweets
@@ -122,41 +163,50 @@ Obtener un listado de todos los usuarios disponibles en la BBDD
 
 Ejemplos con búsquedas filtradas:
 
-### Update
+-   **Texto**
+    Posibilidad de buscar por palabras enteras o caracteres
 
-Añadimos los datos a modificar del usuario actual en el body (x-www-form-urlencoded) de la petición POST
+    ```sh
+    GET http://localhost:3000/api/tweets?text=a
+    ```
+
+-   **Id de usuario**
+
+    ```sh
+    GET http://localhost:3000/api/tweets?userIds=854788135948
+    ```
+
+-   **Paginación con _skip_ y _limit_**
+
+    ```sh
+    GET http://localhost:3000/api/tweets?skip=0&limit=5
+    ```
+
+-   **Ordenación**
+    Fecha de creación ascendente
+
+    ```sh
+    GET http://localhost:3000/api/tweets?sort=asc
+    ```
+
+    Fecha de creación descendente
+
+    ```sh
+    GET http://localhost:3000/api/tweets?sort=desc
+    ```
+
+Ejemplo de varios filtros en una misma petición
 
 ```sh
-  PUT localhost:3000/api/users/update-me
-
-  user[username]: 'adios'
+GET http://localhost:3000/api/tweets?userIds=854788135948&skip=0&limit=5&sort=createdAt
 ```
 
 ### Delete
 
-Borramos un tweet usando su id
+Borramos un tweet/flit usando su id. Sólo para los autores del tweet/flit
 
 ```sh
   DELETE localhost:3000/api/tweets/742579749943
-```
-
-## AUTHENTIFICATION
-
-### Log In
-
-Añadimos los datos del login en el body (x-www-form-urlencoded) de la petición POST, nos devuelve el token en una cookie
-
-```sh
-  POST localhost:3000/api/auth/login
-
-  email: hola@flitter.com,
-  password: 1234
-```
-
-### Log Out
-
-```sh
-  GET localhost:3000/api/auth/logout
 ```
 
 ## Autoras:

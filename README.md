@@ -2,8 +2,6 @@
 
 ## Bootcamp _Mujeres en Tech_ by KeepCoding
 
-## About
-
 Este proycecto es una API desarrollada como el Back End para el proyecto final del Bootcamp: un clon de twitter. La API se ha desarrollado con Node.js y [Express generator- Typescript](https://github.com/seanpmaxwell/express-generator-typescript), junto con Mongoose para conectarla a MongoDB.
 
 La parte de Front End se puede ver en el siguiente repositorio:
